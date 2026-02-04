@@ -164,8 +164,8 @@ a {
   box-shadow: var(--shadow-red);
 }
 :root {
-  --primary: #00b4a6;
-  --primary-dark: #008a7b;
+  --primary: #b40000;
+  --primary-dark: #8a0000;
   --secondary: #1a365d;
   --accent: #38b2ac;
   --youtube-red: #ff0000;
@@ -1981,7 +1981,8 @@ table {
   padding: 2rem 0 0;
 }
 .section-title {
-  color: var(--primary);
+  /* color: var(--primary); */
+  color: #ff0000;
   font-size: 2.5rem;
   margin-bottom: 1rem;
   font-weight: 700;
