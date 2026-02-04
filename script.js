@@ -538,3 +538,52 @@
       { passive: !0 }
     );
 })();
+
+document.addEventListener("DOMContentLoaded", () => {
+    const carouselWrapper = document.querySelector(".carousel-wrapper");
+    if (!carouselWrapper) return;
+
+    const grid = carouselWrapper.querySelector(".testimonials-grid");
+    const prevButton = carouselWrapper.querySelector(".carousel-button.prev");
+    const nextButton = carouselWrapper.querySelector(".carousel-button.next");
+
+    if (!grid || !prevButton || !nextButton) return;
+
+    const scrollStep = () => {
+        // Scroll by 80% of the container width, which matches the card width on mobile
+        return grid.clientWidth * 0.8;
+    };
+
+    nextButton.addEventListener("click", () => {
+        grid.scrollBy({ left: scrollStep(), behavior: "smooth" });
+    });
+
+    prevButton.addEventListener("click", () => {
+        grid.scrollBy({ left: -scrollStep(), behavior: "smooth" });
+    });
+
+    const updateButtonState = () => {
+        if (window.innerWidth > 768) {
+            prevButton.style.display = "none";
+            nextButton.style.display = "none";
+            return;
+        }
+        prevButton.style.display = "block";
+        nextButton.style.display = "block";
+        
+        // A small tolerance is added to account for fractional pixel values
+        const scrollLeft = grid.scrollLeft;
+        const scrollWidth = grid.scrollWidth;
+        const clientWidth = grid.clientWidth;
+
+        prevButton.disabled = scrollLeft < 1;
+        nextButton.disabled = scrollLeft + clientWidth >= scrollWidth - 1;
+    };
+
+    grid.addEventListener("scroll", updateButtonState, { passive: true });
+    window.addEventListener("resize", updateButtonState, { passive: true });
+
+    // Initial check
+    updateButtonState();
+});
+
